@@ -186,9 +186,9 @@ if user_input_folder is not None:
         
                     df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
 
-                    time.sleep(0.5)
+                    # time.sleep(0.5)
         
-                st.dataframe(df_all_data_extracted_combined)
+                    st.dataframe(df_all_data_extracted_combined)
 
 
         
@@ -287,6 +287,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
