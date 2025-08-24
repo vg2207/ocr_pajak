@@ -10,7 +10,7 @@ import pytesseract
 import cv2
 from pdf2image import convert_from_path
 import time
-
+from io import BytesIO
 
 
 st.set_page_config(layout="wide")
@@ -190,6 +190,13 @@ if user_input_folder is not None:
                 time.sleep(0.5)
         
                 st.dataframe(df_all_data_extracted_combined)
+                output = BytesIO()
+    
+                with pd.ExcelWriter(output, engine='xlsxwriter') as writer: 
+                    df_download = df_all_data_extracted_combined.to_excel(writer)
+        
+                button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name='result.xlsx')
+
 
 
         
@@ -288,6 +295,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
