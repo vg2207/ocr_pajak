@@ -80,7 +80,7 @@ if user_input_folder is not None:
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
         # st.write(os.path.join(saved_directory+"/*.jpg"))
 
-        st.write(saved_directory)
+        st.write(os.listdir(saved_directory))
         with st.spinner("Wait for it..."):
             with st.empty():
                 
@@ -288,6 +288,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
