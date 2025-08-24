@@ -144,7 +144,10 @@ if user_input_folder is not None:
                         "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [],
                         "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
                         "C.4 TANGGAL": [],
-                        "Nama File": []
+                        "Nama File": [],
+                        "DPP converted": [],
+                        "PAJAK PENGHASILAN converted": [],
+                        "TARIF converted": []
                         }
                     df_all_data = pd.DataFrame(nama_kolom)
         
@@ -180,7 +183,10 @@ if user_input_folder is not None:
                                             "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [extracted[14]],
                                             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
                                             "C.4 TANGGAL": [extracted[16]],
-                                            "Nama File": [image_path_in_colab[12:][:-4]]
+                                            "Nama File": [image_path_in_colab[12:][:-4]],
+                                            "DPP converted": [float(extracted[7].replace(".",""))],
+                                            "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
+                                            "TARIF converted": [float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
@@ -188,8 +194,8 @@ if user_input_folder is not None:
                     df_all_data_extracted = extract_text(image=img, coordinates=coordinates, all_data=df_all_data)
         
                     df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
-                    for i in range(len(df_all_data_extracted_combined)):
-                        df_all_data_extracted_combined["CALCULATED TARIF"] = df_all_data_extracted_combined["DPP"][i].replace(".","")/df_all_data_extracted_combined["PAJAK PENGHASILAN converted"][i]*100
+                    # for i in range(len(df_all_data_extracted_combined)):
+                    #     df_all_data_extracted_combined["CALCULATED TARIF"] = df_all_data_extracted_combined["DPP"][i].replace(".","")/df_all_data_extracted_combined["PAJAK PENGHASILAN converted"][i]*100
 
                 # time.sleep(0.5)
 
@@ -212,6 +218,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
