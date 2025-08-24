@@ -218,7 +218,7 @@ if user_input_folder is not None:
     end_datetime = datetime.datetime.now()
     time_difference = end_datetime - current_datetime
 
-    st.write(f"Running Time: {time_difference}"
+    st.write(f"Running Time: {time_difference}")
 
 
         
@@ -228,6 +228,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
