@@ -84,7 +84,7 @@ if user_input_folder is not None:
             with st.empty():
                 for image_path_in_colab in glob.glob(str(os.path.join(saved_directory+"/*.jpg"))):
                     # st.write(image_path_in_colab)
-                    st.write("Processing "+str(i+1)+"/"+str(len(os.path.join(os.getcwd(), saved_directory))))
+                    st.write("Processing "+str(i+1)+"/"+str(len(file_count)))
                     img = cv2.imread(image_path_in_colab, cv2.IMREAD_GRAYSCALE)
         
                     # print(img.shape[1])
@@ -284,6 +284,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
