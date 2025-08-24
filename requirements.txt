@@ -15,4 +15,3 @@ openpyxl
 pytesseract
 opencv-python-headless
 pdf2image
-python-poppler
