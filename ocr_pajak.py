@@ -11,6 +11,7 @@ import cv2
 from pdf2image import convert_from_path
 import time
 from io import BytesIO
+import datetime
 
 
 st.set_page_config(layout="wide")
@@ -228,6 +229,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
