@@ -55,7 +55,7 @@ if user_input_folder is not None:
                 for i in range(len(file_path_pdf)):
                 
                     st.write("Converting "+str(i+1)+"/"+str(file_count))
-                    images = convert_from_path(os.path.join(path_to_pdf,file_path_pdf[i]), 1200)
+                    images = convert_from_path(os.path.join(path_to_pdf,file_path_pdf[i]), 300)
                     for j, image in enumerate(images):
                         fname = os.path.join(saved_directory, str(file_path_pdf[i])[:-4]+'.jpg')
                         image.save(fname, "JPEG")
@@ -195,9 +195,9 @@ if user_input_folder is not None:
                                             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
                                             "C.4 TANGGAL": [extracted[16]],
                                             "Nama File": [image_path_in_colab[12:][:-4]],
-                                            # "DPP converted": [float(extracted[7].replace(".",""))],
-                                            # "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
-                                            # "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
+                                            "DPP converted": [float(extracted[7].replace(".",""))],
+                                            "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
+                                            "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
@@ -236,6 +236,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
