@@ -80,109 +80,112 @@ if user_input_folder is not None:
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
         # st.write(os.path.join(saved_directory+"/*.jpg"))
 
-        for image_path_in_colab in glob.glob(str(os.path.join(saved_directory+"/*.jpg"))):
-            # st.write(image_path_in_colab)
-            img = cv2.imread(image_path_in_colab, cv2.IMREAD_GRAYSCALE)
-
-            print(img.shape[1])
-            # Define the region of interest (ROI) - arbitrary coordinates
-
-            def region_of_interest(coordinate):
-                x1 = coordinate[0]
-                x2 = coordinate[1]
-                y1 = coordinate[2]
-                y2 = coordinate[3]
-                x_start = int(x1/20.35*4134)
-                x_end = int(x2/20.35*4134)
-                y_start = int(y1/20.35*4134)
-                y_end = int(y2/20.35*4134)
-                
-                return(x_start, x_end, y_start, y_end)
-
-
-            coordinates = [
-                [1.5, 5.3, 3.8, 4.2],
-                [6.1, 9.9, 3.8, 4.2],
-                [11, 14, 3.8, 4.2],
-                [15.5, 19, 3.8, 4.2],
-                [3.35, 5, 8.2, 8.8],
-                [2, 5.2, 10.35, 10.8],
-                [5.4, 10.2, 10.35, 10.8],
-                [11, 13.2, 10.35, 10.8],
-                [14, 15, 10.35, 10.8],
-                [15.7, 19.4, 10.35, 10.8],
-                [9, 12, 11.2, 12],
-                [14.2, 17, 11.2, 12],
-                [9, 13, 13.2, 13.7],
-                [7.5, 20, 15.3, 15.8],
-                [7.5, 20, 15.8, 16.7],
-                [7.5, 20, 16.7, 17.7],
-                [7.5, 20, 17.7, 18.2]]
-
-
-
-            nama_kolom = {
-                "NOMOR": [],
-                "MASA PAJAK": [],
-                "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [],
-                "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
-                "B.2 Jenis PPh": [],
-                "KODE OBJEK PAJAK": [],
-                "OBJEK PAJAK": [],
-                "DPP": [],
-                "TARIF": [],
-                "PAJAK PENGHASILAN": [],
-                "B.8 Jenis Dokumen": [],
-                "B.8 Tanggal": [],
-                "B.9 Nomor Dokumen": [],
-                "C.1 NPWP / NIK": [],
-                "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [],
-                "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
-                "C.4 TANGGAL": []
-                }
-            df_all_data = pd.DataFrame(nama_kolom)
-
-
-            def extract_text(image=img, coordinates=coordinates, all_data=df_all_data):
-                extracted=[]
-                for i in range(len(coordinates)):
-
-                    x_start, x_end, y_start, y_end = region_of_interest(coordinates[i])
-
-                    cropped_img = img[y_start:y_end, x_start:x_end]
-                    cropped_img_bigger = cv2.copyMakeBorder(cropped_img, 200, 200, 200, 200, cv2.BORDER_CONSTANT, value=(255, 255, 255))
-
-                    extractedInformation = pytesseract.image_to_string(cropped_img_bigger).strip()
-
-                    extracted.append(extractedInformation)
-                
-                new_row = pd.DataFrame({
-                                    "NOMOR": [extracted[0]],
-                                    "MASA PAJAK": [extracted[1]],
-                                    "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [extracted[2]],
-                                    "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [extracted[3]],
-                                    "B.2 Jenis PPh": [extracted[4]],
-                                    "KODE OBJEK PAJAK": [extracted[5]],
-                                    "OBJEK PAJAK": [extracted[6]],
-                                    "DPP": [extracted[7]],
-                                    "TARIF": [extracted[8]],
-                                    "PAJAK PENGHASILAN": [extracted[9]],
-                                    "B.8 Jenis Dokumen": [extracted[10]],
-                                    "B.8 Tanggal": [extracted[11]],
-                                    "B.9 Nomor Dokumen": [extracted[12]],
-                                    "C.1 NPWP / NIK": [extracted[13]],
-                                    "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [extracted[14]],
-                                    "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
-                                    "C.4 TANGGAL": [extracted[16]]
-                                })
-                df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
-                return(df_all_data_extracted)
-
-            df_all_data_extracted = extract_text(image=img, coordinates=coordinates, all_data=df_all_data)
-
-            df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
-
-            st.dataframe(df_all_data_extracted_combined)
+        with st.spinner("Wait for it..."):
+            with st.empty():
+                for image_path_in_colab in glob.glob(str(os.path.join(saved_directory+"/*.jpg"))):
+                    # st.write(image_path_in_colab)
+                    st.write("Processing "+str(i+1)+"/"+str(len(saved_directory))
+                    img = cv2.imread(image_path_in_colab, cv2.IMREAD_GRAYSCALE)
+        
+                    # print(img.shape[1])
+                    # Define the region of interest (ROI) - arbitrary coordinates
+        
+                    def region_of_interest(coordinate):
+                        x1 = coordinate[0]
+                        x2 = coordinate[1]
+                        y1 = coordinate[2]
+                        y2 = coordinate[3]
+                        x_start = int(x1/20.35*4134)
+                        x_end = int(x2/20.35*4134)
+                        y_start = int(y1/20.35*4134)
+                        y_end = int(y2/20.35*4134)
+                        
+                        return(x_start, x_end, y_start, y_end)
+        
+        
+                    coordinates = [
+                        [1.5, 5.3, 3.8, 4.2],
+                        [6.1, 9.9, 3.8, 4.2],
+                        [11, 14, 3.8, 4.2],
+                        [15.5, 19, 3.8, 4.2],
+                        [3.35, 5, 8.2, 8.8],
+                        [2, 5.2, 10.35, 10.8],
+                        [5.4, 10.2, 10.35, 10.8],
+                        [11, 13.2, 10.35, 10.8],
+                        [14, 15, 10.35, 10.8],
+                        [15.7, 19.4, 10.35, 10.8],
+                        [9, 12, 11.2, 12],
+                        [14.2, 17, 11.2, 12],
+                        [9, 13, 13.2, 13.7],
+                        [7.5, 20, 15.3, 15.8],
+                        [7.5, 20, 15.8, 16.7],
+                        [7.5, 20, 16.7, 17.7],
+                        [7.5, 20, 17.7, 18.2]]
+        
+        
+        
+                    nama_kolom = {
+                        "NOMOR": [],
+                        "MASA PAJAK": [],
+                        "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [],
+                        "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
+                        "B.2 Jenis PPh": [],
+                        "KODE OBJEK PAJAK": [],
+                        "OBJEK PAJAK": [],
+                        "DPP": [],
+                        "TARIF": [],
+                        "PAJAK PENGHASILAN": [],
+                        "B.8 Jenis Dokumen": [],
+                        "B.8 Tanggal": [],
+                        "B.9 Nomor Dokumen": [],
+                        "C.1 NPWP / NIK": [],
+                        "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [],
+                        "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
+                        "C.4 TANGGAL": []
+                        }
+                    df_all_data = pd.DataFrame(nama_kolom)
+        
+        
+                    def extract_text(image=img, coordinates=coordinates, all_data=df_all_data):
+                        extracted=[]
+                        for i in range(len(coordinates)):
+        
+                            x_start, x_end, y_start, y_end = region_of_interest(coordinates[i])
+        
+                            cropped_img = img[y_start:y_end, x_start:x_end]
+                            cropped_img_bigger = cv2.copyMakeBorder(cropped_img, 200, 200, 200, 200, cv2.BORDER_CONSTANT, value=(255, 255, 255))
+        
+                            extractedInformation = pytesseract.image_to_string(cropped_img_bigger).strip()
+        
+                            extracted.append(extractedInformation)
+                        
+                        new_row = pd.DataFrame({
+                                            "NOMOR": [extracted[0]],
+                                            "MASA PAJAK": [extracted[1]],
+                                            "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [extracted[2]],
+                                            "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [extracted[3]],
+                                            "B.2 Jenis PPh": [extracted[4]],
+                                            "KODE OBJEK PAJAK": [extracted[5]],
+                                            "OBJEK PAJAK": [extracted[6]],
+                                            "DPP": [extracted[7]],
+                                            "TARIF": [extracted[8]],
+                                            "PAJAK PENGHASILAN": [extracted[9]],
+                                            "B.8 Jenis Dokumen": [extracted[10]],
+                                            "B.8 Tanggal": [extracted[11]],
+                                            "B.9 Nomor Dokumen": [extracted[12]],
+                                            "C.1 NPWP / NIK": [extracted[13]],
+                                            "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [extracted[14]],
+                                            "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
+                                            "C.4 TANGGAL": [extracted[16]]
+                                        })
+                        df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
+                        return(df_all_data_extracted)
+        
+                    df_all_data_extracted = extract_text(image=img, coordinates=coordinates, all_data=df_all_data)
+        
+                    df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
+        
+                    st.dataframe(df_all_data_extracted_combined)
 
 
         
@@ -281,6 +284,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
