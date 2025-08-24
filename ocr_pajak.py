@@ -55,7 +55,7 @@ if user_input_folder is not None:
                 for i in range(len(file_path_pdf)):
                 
                     st.write("Converting "+str(i+1)+"/"+str(file_count))
-                    images = convert_from_path(os.path.join(path_to_pdf,file_path_pdf[i]), 400)
+                    images = convert_from_path(os.path.join(path_to_pdf,file_path_pdf[i]), 500)
                     for j, image in enumerate(images):
                         fname = os.path.join(saved_directory, str(file_path_pdf[i])[:-4]+'.jpg')
                         image.save(fname, "JPEG")
@@ -236,6 +236,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
