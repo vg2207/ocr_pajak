@@ -13,5 +13,5 @@ pandas
 XlsxWriter
 openpyxl
 pytesseract
-opencv-python-headless
+opencv-python
 pdf2image
