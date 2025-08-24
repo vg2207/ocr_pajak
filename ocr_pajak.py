@@ -83,10 +83,10 @@ if user_input_folder is not None:
         st.write(os.listdir(saved_directory))
         with st.spinner("Wait for it..."):
             with st.empty():
-                
+                j=0
                 for image_path_in_colab in glob.glob(str(os.path.join(saved_directory+"/*.jpg"))):
-                    # st.write(image_path_in_colab)
-                    st.write("Processing "+str(image_path_in_colab+1)+"/"+str(file_count))
+                    
+                    st.write("Processing "+str(j+1)+"/"+str(file_count))
                     img = cv2.imread(image_path_in_colab, cv2.IMREAD_GRAYSCALE)
         
                     # print(img.shape[1])
@@ -194,9 +194,11 @@ if user_input_folder is not None:
                     df_all_data_extracted = extract_text(image=img, coordinates=coordinates, all_data=df_all_data)
         
                     df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
-                    # for i in range(len(df_all_data_extracted_combined)):
-                    #     df_all_data_extracted_combined["CALCULATED TARIF"] = df_all_data_extracted_combined["DPP"][i].replace(".","")/df_all_data_extracted_combined["PAJAK PENGHASILAN converted"][i]*100
 
+                    j+=1
+            
+
+            
                 # time.sleep(0.5)
 
             with st.spinner("Preparing to show some samples of data ..."):
@@ -218,6 +220,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
