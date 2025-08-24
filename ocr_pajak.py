@@ -13,6 +13,8 @@ import time
 from io import BytesIO
 import datetime
 # import easyocr
+import re
+from pypdf import PdfReader
 
 
 st.set_page_config(layout="wide")
@@ -58,7 +60,7 @@ if user_input_folder is not None:
                     images = convert_from_path(os.path.join(path_to_pdf,file_path_pdf[i]), 500)
                     for j, image in enumerate(images):
                         fname = os.path.join(saved_directory, str(file_path_pdf[i])[:-4]+'.jpg')
-                        image.save(fname, "JPEG")
+            
             time.sleep(0.5)
         st.success("File converted successfully!")
 
@@ -176,9 +178,23 @@ if user_input_folder is not None:
                             # extractedInformation = reader.readtext(cropped_img_bigger, detail=0)
         
                             extracted.append(extractedInformation)
+
+                        # ONLY FOR NOMOR
+                        for j in range(len(file_path_pdf)):
+                            # Open the PDF file
+                            reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[j])
+                            
+                            # Iterate through pages and extract text
+                            extracted_text = ""
+                            for page in reader.pages:
+                                extracted_text += page.extract_text()
+                            a = [extracted_text]
+                            text_for_nomor = re.findall('(?<=PEMUNGUTAN PPh PEMUNGUTAN\n)[^ ]+', a[0])
+                            
                         
                         new_row = pd.DataFrame({
-                                            "NOMOR": [extracted[0]],
+                                            # "NOMOR": [extracted[0]],
+                                            "NOMOR": [text_for_nomor],
                                             "MASA PAJAK": [extracted[1]],
                                             "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [extracted[2]],
                                             "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [extracted[3]],
@@ -237,6 +253,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
