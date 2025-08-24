@@ -190,15 +190,17 @@ if user_input_folder is not None:
                     df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
 
                 # time.sleep(0.5)
-        
-            st.dataframe(df_all_data_extracted_combined)
-            
-            output = BytesIO()
 
-            with pd.ExcelWriter(output, engine='xlsxwriter') as writer: 
-                df_download = df_all_data_extracted_combined.to_excel(writer)
+            with st.spinner("Preparing to show some samples of data ..."):
+                st.dataframe(df_all_data_extracted_combined.head(5))
+
+            with st.spinner("Preparing for data to be downloaded ..."):
+                output = BytesIO()
     
-            button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name='result.xlsx')
+                with pd.ExcelWriter(output, engine='xlsxwriter') as writer: 
+                    df_download = df_all_data_extracted_combined.to_excel(writer)
+        
+                button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name='result.xlsx')
 
 
         
@@ -208,6 +210,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
