@@ -169,9 +169,10 @@ if user_input_folder is not None:
                             x_start, x_end, y_start, y_end = region_of_interest(coordinates[i])
         
                             cropped_img = img[y_start:y_end, x_start:x_end]
-                            cropped_img_bigger = cv2.copyMakeBorder(cropped_img, 200, 200, 200, 200, cv2.BORDER_CONSTANT, value=(255, 255, 255))
+                            # cropped_img_bigger = cv2.copyMakeBorder(cropped_img, 200, 200, 200, 200, cv2.BORDER_CONSTANT, value=(255, 255, 255))
         
-                            extractedInformation = pytesseract.image_to_string(cropped_img_bigger).strip()
+                            # extractedInformation = pytesseract.image_to_string(cropped_img_bigger).strip()
+                            extractedInformation = pytesseract.image_to_string(cropped_img).strip()
                             # extractedInformation = reader.readtext(cropped_img_bigger, detail=0)
         
                             extracted.append(extractedInformation)
@@ -236,6 +237,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
