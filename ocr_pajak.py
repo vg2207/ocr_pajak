@@ -182,7 +182,7 @@ if user_input_folder is not None:
                         # ONLY FOR NOMOR
                         for j in range(len(file_path_pdf)):
                             # Open the PDF file
-                            reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[j])
+                            reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[j]))
                             
                             # Iterate through pages and extract text
                             extracted_text = ""
@@ -253,6 +253,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
