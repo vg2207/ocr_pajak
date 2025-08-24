@@ -80,9 +80,10 @@ if user_input_folder is not None:
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
         # st.write(os.path.join(saved_directory+"/*.jpg"))
 
+        st.write(saved_directory)
         with st.spinner("Wait for it..."):
             with st.empty():
-                st.write(saved_directory)
+                
                 for image_path_in_colab in glob.glob(str(os.path.join(saved_directory+"/*.jpg"))):
                     # st.write(image_path_in_colab)
                     st.write("Processing "+str(i+1)+"/"+str(file_count))
@@ -287,6 +288,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
