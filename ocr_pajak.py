@@ -1,5 +1,3 @@
-import subprocess
-subprocess.run(["pip", "install", "--upgrade", "pip"])
 import streamlit as st
 import os
 from pathlib import Path
@@ -285,6 +283,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
