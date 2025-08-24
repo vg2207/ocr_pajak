@@ -180,16 +180,16 @@ if user_input_folder is not None:
                             extracted.append(extractedInformation)
 
                         # ONLY FOR NOMOR
-                        for j in range(len(file_path_pdf)):
+                        for k in range(len(file_path_pdf)):
                             # Open the PDF file
-                            reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[j]))
+                            reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[k]))
                             
                             # Iterate through pages and extract text
                             extracted_text = ""
                             for page in reader.pages:
                                 extracted_text += page.extract_text()
                             a = [extracted_text]
-                            text_for_nomor = re.findall('(?<=PEMUNGUTAN PPh PEMUNGUTAN\n)[^ ]+', a[0])
+                            text_for_nomor = re.findall('(?<=PEMUNGUTAN PPh PEMUNGUTAN\n)[^ ]+', a[0])[0]
                             
                         
                         new_row = pd.DataFrame({
@@ -253,6 +253,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
