@@ -143,7 +143,8 @@ if user_input_folder is not None:
                         "C.1 NPWP / NIK": [],
                         "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [],
                         "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
-                        "C.4 TANGGAL": []
+                        "C.4 TANGGAL": [],
+                        "Nama File": []
                         }
                     df_all_data = pd.DataFrame(nama_kolom)
         
@@ -179,6 +180,7 @@ if user_input_folder is not None:
                                             "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [extracted[14]],
                                             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
                                             "C.4 TANGGAL": [extracted[16]]
+                                            "Nama File": [image_path_in_colab]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
@@ -187,20 +189,16 @@ if user_input_folder is not None:
         
                     df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
 
-                time.sleep(0.5)
+                # time.sleep(0.5)
         
-                st.dataframe(df_all_data_extracted_combined)
-                output = BytesIO()
+            st.dataframe(df_all_data_extracted_combined)
+            
+            output = BytesIO()
+
+            with pd.ExcelWriter(output, engine='xlsxwriter') as writer: 
+                df_download = df_all_data_extracted_combined.to_excel(writer)
     
-                with pd.ExcelWriter(output, engine='xlsxwriter') as writer: 
-                    df_download = df_all_data_extracted_combined.to_excel(writer)
-        
-                button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name='result.xlsx')
-
-
-
-        
-
+            button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name='result.xlsx')
 
 
         
@@ -210,104 +208,6 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
-
-
-
-# images = convert_from_path(f"D:/Data Science/Project etc/OCR pajak/tes ocr/tes ocr/M_01-DOC001_SPT_Unifikasi_English_BPU_ID-fo-xsl_DN2025173976628119321.pdf", 500)
-
-
-
-# for i, image in enumerate(images):
-#     fname = 'image'+str(i+2)+'.jpg'
-#     image.save(fname, "JPEG")
-
-
-        
-        # tab1, tab2 = st.tabs(["Setting", "Run Apps"])
-        # with tab1 :
-
-
-#         col_1, col_2, col_3, col_4, col_5 = st.columns(5)
-#         with st.container():
-#             with col_1:
-#                 user_input_npwp = 'IDENTITAS_PENERIMA_PENGHASILAN'
-#         with st.container():
-#             with col_2:
-#                 user_input_perusahaan = 'NAMA_PENERIMA_PENGHASILAN'
-#         with st.container():
-#             with col_3:
-#                 user_input_masa_pajak = 'MASA_PAJAK'
-#         with st.container():
-#             with col_4:
-#                 user_input_tahun_pajak = 'TAHUN_PAJAK'
-#         with st.container():
-#             with col_5:
-#                 user_input_ID = 'ID_SISTEM'
-
-#         submit_button_clicked = st.button("Submit", type="primary", use_container_width=True)
-
-#         if submit_button_clicked :
-
-
-#             a = os.listdir(os.path.join(os.getcwd(),os.path.splitext(user_input_folder.name)[0]))
-#             lst = []
-#             for x in a :
-#                 lst.append(os.path.splitext(x)[0][-36 :])
-
-#             if len(lst) != len(df) :
-#                 st.error('Data length not matched!')
-#             else :
-
-#                 for i in range(len(lst)):
-#                     matching_index = df.index[df[user_input_ID] == lst[i]]
-#                     nama_perusahaan = df.loc[matching_index, user_input_perusahaan]
-#                     npwp_perusahaan = df.loc[matching_index, user_input_npwp]
-#                     nama_npwp_perusahaan = str(nama_perusahaan.item()) + ' (' + str(npwp_perusahaan.item()) + ')'
-#                     tahun_pajak = df.loc[matching_index, user_input_tahun_pajak]
-#                     masa_pajak = df.loc[matching_index, user_input_masa_pajak]
-#                     tahun_masa_pajak = str(tahun_pajak.item()) + '-' + str(masa_pajak.item())
-
-#                     result_path = os.path.join(os.getcwd(),'Result')
-#                     if os.path.exists(result_path) == False:
-#                         os.mkdir(result_path)
-#                     if os.path.exists(os.path.join(result_path, nama_npwp_perusahaan)) == False:
-#                         os.mkdir(os.path.join(result_path, nama_npwp_perusahaan))
-#                     if os.path.exists(os.path.join(result_path, nama_npwp_perusahaan, tahun_masa_pajak)) == False:
-#                         os.mkdir(os.path.join(result_path, nama_npwp_perusahaan, tahun_masa_pajak))
-#                     path_to_save = os.path.join(result_path, nama_npwp_perusahaan, tahun_masa_pajak)
-                    
-#                     shutil.copy(glob.glob(os.path.join(os.getcwd(),os.path.splitext(user_input_folder.name)[0],'*pdf'))[i], path_to_save)
-                
-#                 # st.write(os.listdir(os.getcwd()))
-
-#                 shutil.make_archive('Result', 'zip', result_path)
-                
-#                 result_path_zipped = os.path.join(os.getcwd(),'Result.zip')
-
-#                 with open(result_path_zipped, "rb") as fp :
-#                     button_clicked = st.download_button(label=':cloud: Download Result', type="secondary", data=fp, file_name='Result.zip', mime="application/zip")
-
-
-
-
-#     else :
-#         st.error("You have to upload pdf folder in the sidebar")
-
-# else :
-#     st.error("You have to upload a csv or an excel file in the sidebar")
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
