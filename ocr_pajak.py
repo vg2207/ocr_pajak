@@ -86,7 +86,7 @@ if user_input_folder is not None:
                 
                 for image_path_in_colab in glob.glob(str(os.path.join(saved_directory+"/*.jpg"))):
                     # st.write(image_path_in_colab)
-                    st.write("Processing "+str(i+1)+"/"+str(file_count))
+                    st.write("Processing "+str(image_path_in_colab+1)+"/"+str(file_count))
                     img = cv2.imread(image_path_in_colab, cv2.IMREAD_GRAYSCALE)
         
                     # print(img.shape[1])
@@ -218,6 +218,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
