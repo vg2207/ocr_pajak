@@ -26,6 +26,9 @@ user_input_folder = st.file_uploader("Upload pdf folder", type=['zip'], accept_m
 
 if user_input_folder is not None:
     if user_input_folder.name.endswith('.zip'):
+        
+        current_datetime = datetime.datetime.now()
+        
         target_path = os.path.join(os.getcwd(), os.path.splitext(user_input_folder.name)[0])
         if os.path.exists(target_path) == False:
             os.mkdir(target_path)
@@ -34,11 +37,11 @@ if user_input_folder is not None:
         st.success('Folder Uploaded Successfully!')
 
         path_to_pdf = os.path.join(target_path, str(os.listdir(target_path)[0]))
-        # st.write(path_to_pdf)
+
         file_path_pdf = os.listdir(path_to_pdf)
-        # st.write(file_path_pdf)
+
         file_count = len(file_path_pdf)
-        # st.write(file_count)
+
 
         saved_directory = 'saved_image'
         if not os.path.exists(saved_directory):
@@ -55,7 +58,7 @@ if user_input_folder is not None:
                         fname = os.path.join(saved_directory, str(file_path_pdf[i])[:-4]+'.jpg')
                         image.save(fname, "JPEG")
             time.sleep(0.5)
-        st.success("File converted!")
+        st.success("File converted successfully!")
 
 
         nama_kolom = {
@@ -78,9 +81,9 @@ if user_input_folder is not None:
             "C.4 TANGGAL": []
             }
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
-        # st.write(os.path.join(saved_directory+"/*.jpg"))
 
-        st.write(os.listdir(saved_directory))
+        # st.write(os.listdir(saved_directory))
+        
         with st.spinner("Wait for it..."):
             with st.empty():
                 j=0
@@ -212,6 +215,11 @@ if user_input_folder is not None:
         
                 button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name='result.xlsx')
 
+    end_datetime = datetime.datetime.now()
+    time_difference = end_datetime - current_datetime
+
+    st.write(f"Running Time: {time_difference}"
+
 
         
     else:
@@ -220,6 +228,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
