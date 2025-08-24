@@ -186,7 +186,7 @@ if user_input_folder is not None:
                                             "Nama File": [image_path_in_colab[12:][:-4]],
                                             "DPP converted": [float(extracted[7].replace(".",""))],
                                             "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
-                                            "TARIF converted": [float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100]
+                                            "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
@@ -218,6 +218,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
