@@ -7,7 +7,7 @@
 #opencv-python-headless
 #pdf2image==1.17.0
 
-python
+jurigged
 streamlit
 pandas
 XlsxWriter
