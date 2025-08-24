@@ -102,6 +102,18 @@ if user_input_folder is not None:
         
                     # print(img.shape[1])
                     # Define the region of interest (ROI) - arbitrary coordinates
+
+                    # ONLY FOR NOMOR
+                    
+                    # Open the PDF file
+                    reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[j]))
+                    a=[]
+                    # Iterate through pages and extract text
+                    extracted_text = ""
+                    for page in reader.pages:
+                        extracted_text += page.extract_text()
+                    a = [extracted_text]
+                    text_for_nomor = re.findall('(?<=PEMUNGUTAN PPh PEMUNGUTAN\n)[^ ]+', a[0])[0]
         
                     def region_of_interest(coordinate):
                         x1 = coordinate[0]
@@ -164,7 +176,7 @@ if user_input_folder is not None:
         
                     
 
-                    def extract_text(image=img, coordinates=coordinates, all_data=df_all_data):
+                    def extract_text(image=img, coordinates=coordinates, all_data=df_all_data, text_for_nomor=text_for_nomor):
                         extracted=[]
                         for i in range(len(coordinates)):
         
@@ -179,17 +191,7 @@ if user_input_folder is not None:
         
                             extracted.append(extractedInformation)
 
-                        # ONLY FOR NOMOR
-                        for k in range(len(file_path_pdf)):
-                            # Open the PDF file
-                            reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[k]))
-                            
-                            # Iterate through pages and extract text
-                            extracted_text = ""
-                            for page in reader.pages:
-                                extracted_text += page.extract_text()
-                            a = [extracted_text]
-                            text_for_nomor = re.findall('(?<=PEMUNGUTAN PPh PEMUNGUTAN\n)[^ ]+', a[0])[0]
+                        
                             
                         
                         new_row = pd.DataFrame({
@@ -219,7 +221,7 @@ if user_input_folder is not None:
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
         
-                    df_all_data_extracted = extract_text(image=img, coordinates=coordinates, all_data=df_all_data)
+                    df_all_data_extracted = extract_text(image=img, coordinates=coordinates, all_data=df_all_data, text_for_nomor=text_for_nomor)
         
                     df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
 
@@ -253,6 +255,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
