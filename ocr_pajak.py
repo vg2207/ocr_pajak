@@ -78,10 +78,10 @@ if user_input_folder is not None:
             "C.4 TANGGAL": []
             }
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
-        st.write(os.path.join(saved_directory+"/*.jpg"))
+        # st.write(os.path.join(saved_directory+"/*.jpg"))
 
         for image_path_in_colab in glob.glob(str(os.path.join(saved_directory+"/*.jpg"))):
-            st.write(image_path_in_colab)
+            # st.write(image_path_in_colab)
             img = cv2.imread(image_path_in_colab, cv2.IMREAD_GRAYSCALE)
 
             print(img.shape[1])
@@ -193,8 +193,6 @@ if user_input_folder is not None:
     else:
         st.warning('You need to upload zip type file')
     
-    
-    # for pdf_path in glob.glob("/content/*.jpg")
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
@@ -283,6 +281,7 @@ else :
 
 # else :
 #     st.error("You have to upload a csv or an excel file in the sidebar")
+
 
 
 
