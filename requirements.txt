@@ -7,11 +7,11 @@
 #opencv-python-headless
 #pdf2image==1.17.0
 
-python==3.13.5
-streamlit==1.40.0
-pandas==2.0.3
-XlsxWriter==3.1.9
-openpyxl==3.1.2
-pytesseract==0.3.13
+python
+streamlit
+pandas
+XlsxWriter
+openpyxl
+pytesseract
 opencv-python-headless
-pdf2image==1.17.0
+pdf2image
