@@ -12,6 +12,7 @@ from pdf2image import convert_from_path
 import time
 from io import BytesIO
 import datetime
+import easyocr
 
 
 st.set_page_config(layout="wide")
@@ -155,7 +156,8 @@ if user_input_folder is not None:
                         }
                     df_all_data = pd.DataFrame(nama_kolom)
         
-        
+                    reader = easyocr.Reader(['id','en']) # this needs to run only once to load the model into memory
+
                     def extract_text(image=img, coordinates=coordinates, all_data=df_all_data):
                         extracted=[]
                         for i in range(len(coordinates)):
@@ -165,7 +167,8 @@ if user_input_folder is not None:
                             cropped_img = img[y_start:y_end, x_start:x_end]
                             cropped_img_bigger = cv2.copyMakeBorder(cropped_img, 200, 200, 200, 200, cv2.BORDER_CONSTANT, value=(255, 255, 255))
         
-                            extractedInformation = pytesseract.image_to_string(cropped_img_bigger).strip()
+                            # extractedInformation = pytesseract.image_to_string(cropped_img_bigger).strip()
+                            extractedInformation = result = reader.readtext(cropped_img_bigger)
         
                             extracted.append(extractedInformation)
                         
@@ -229,6 +232,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
