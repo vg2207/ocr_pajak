@@ -215,10 +215,10 @@ if user_input_folder is not None:
         
                 button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name='result.xlsx')
 
-    end_datetime = datetime.datetime.now()
-    time_difference = end_datetime - current_datetime
-
-    st.write(f"Running Time: {time_difference}")
+        end_datetime = datetime.datetime.now()
+        time_difference = end_datetime - current_datetime
+    
+        st.write(f"Running Time: {time_difference}")
 
 
         
@@ -228,30 +228,6 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
