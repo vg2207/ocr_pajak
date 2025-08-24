@@ -189,9 +189,7 @@ if user_input_folder is not None:
         
                     df_all_data_extracted_combined = pd.concat([df_all_data_extracted_combined, df_all_data_extracted]).reset_index(drop=True)
                     for i in range(len(df_all_data_extracted_combined)):
-                        df_all_data_extracted_combined["DPP"][i] = df_all_data_extracted_combined["DPP"][i].replace(".","")
-                        df_all_data_extracted_combined["PAJAK PENGHASILAN"][i] = df_all_data_extracted_combined["PAJAK PENGHASILAN"][i].replace(".","")
-                        df_all_data_extracted_combined["CALCULATED TARIF"] = float(int(df_all_data_extracted_combined["PAJAK PENGHASILAN"][i])/int(df_all_data_extracted_combined["DPP"][i]))*100
+                        df_all_data_extracted_combined["CALCULATED TARIF"] = float(int(df_all_data_extracted_combined["PAJAK PENGHASILAN"][i].replace(".",""))/int(df_all_data_extracted_combined["DPP"][i].replace(".","").as))*100
 
                 # time.sleep(0.5)
 
@@ -214,6 +212,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
