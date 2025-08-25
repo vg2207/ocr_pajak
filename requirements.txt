@@ -16,4 +16,5 @@ pytesseract
 opencv-python-headless
 pdf2image
 #easyocr
-pypdf
+#pypdf
+PyPDF2
