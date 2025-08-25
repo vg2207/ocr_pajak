@@ -105,8 +105,8 @@ if user_input_folder is not None:
             }
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
 
-        st.write(os.listdir(os.getcwd()))
-        st.write(os.listdir(saved_directory))
+        # st.write(os.listdir(os.getcwd()))
+        # st.write(os.listdir(saved_directory))
         # reader = easyocr.Reader(['id','en'], gpu=False) # this needs to run only once to load the model into memory
         
         with st.spinner("Wait for it..."):
@@ -280,6 +280,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
