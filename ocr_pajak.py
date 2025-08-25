@@ -88,7 +88,7 @@ if user_input_folder is not None:
             "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
             "B.2 Jenis PPh": [],
             "KODE OBJEK PAJAK": [],
-            # "OBJEK PAJAK": [],
+            "OBJEK PAJAK": [],
             "DPP": [],
             "TARIF": [],
             "PAJAK PENGHASILAN": [],
@@ -99,9 +99,9 @@ if user_input_folder is not None:
             "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [],
             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
             "C.4 TANGGAL": [],
-            # "DPP converted": [],
-            # "PAJAK PENGHASILAN converted": [],
-            # "TARIF converted": []
+            "DPP converted": [],
+            "PAJAK PENGHASILAN converted": [],
+            "TARIF converted": []
             }
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
 
@@ -166,7 +166,7 @@ if user_input_folder is not None:
                         [15.5, 19, 3.8, 4.2],
                         [3.35, 5, 8.2, 8.8],
                         [2, 5.2, 10.35, 10.8],
-                        # [5.4, 10.2, 10.35, 10.8],
+                        [5.4, 10.2, 10.35, 10.8],
                         [11, 13.2, 10.35, 10.8],
                         [14, 15, 10.35, 10.8],
                         [15.7, 19.4, 10.35, 10.8],
@@ -187,7 +187,7 @@ if user_input_folder is not None:
                         "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
                         "B.2 Jenis PPh": [],
                         "KODE OBJEK PAJAK": [],
-                        # "OBJEK PAJAK": [],
+                        "OBJEK PAJAK": [],
                         "DPP": [],
                         "TARIF": [],
                         "PAJAK PENGHASILAN": [],
@@ -199,9 +199,9 @@ if user_input_folder is not None:
                         "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
                         "C.4 TANGGAL": [],
                         "Nama File": [],
-                        # "DPP converted": [],
-                        # "PAJAK PENGHASILAN converted": [],
-                        # "TARIF converted": []
+                        "DPP converted": [],
+                        "PAJAK PENGHASILAN converted": [],
+                        "TARIF converted": []
                         }
                     df_all_data = pd.DataFrame(nama_kolom)
         
@@ -234,7 +234,7 @@ if user_input_folder is not None:
                                             # "B.2 Jenis PPh": [extracted[4]],
                                             "B.2 Jenis PPh": [text_for_b2],
                                             "KODE OBJEK PAJAK": [extracted[5]],
-                                            # "OBJEK PAJAK": [extracted[6]],
+                                            "OBJEK PAJAK": [],
                                             "DPP": [extracted[7]],
                                             "TARIF": [extracted[8]],
                                             "PAJAK PENGHASILAN": [extracted[9]],
@@ -253,9 +253,9 @@ if user_input_folder is not None:
                                             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [text_for_c3],
                                             "C.4 TANGGAL": [text_for_c4],
                                             "Nama File": [image_path_in_colab[41:][:-4]],
-                                            # "DPP converted": [float(extracted[7].replace(".",""))],
-                                            # "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
-                                            # "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
+                                            "DPP converted": [float(extracted[7].replace(".",""))],
+                                            "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
+                                            "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
@@ -302,6 +302,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
