@@ -173,10 +173,10 @@ if user_input_folder is not None:
                     text_for_b5 = b567[0]
                     text_for_b6 = b567[1]
                     text_for_b7 = b567[2]
-                    st.write(b567)
-                    st.write(text_for_b5)
-                    st.write(text_for_b6)
-                    st.write(text_for_b7)
+                    # st.write(b567)
+                    # st.write(text_for_b5)
+                    # st.write(text_for_b6)
+                    # st.write(text_for_b7)
 
         
                     def region_of_interest(coordinate):
@@ -268,7 +268,7 @@ if user_input_folder is not None:
                                             "KODE OBJEK PAJAK": [extracted[3]],
                                             # "OBJEK PAJAK": [],
                                             "DPP": [text_for_b5],
-                                            "TARIF": [text_for_b5],
+                                            "TARIF": [text_for_b6],
                                             "PAJAK PENGHASILAN": [text_for_b7],
                                             "B.8 Jenis Dokumen": [text_for_b8_jenisdokumen],
                                             "B.8 Tanggal": [text_for_b8_tanggal],
@@ -327,6 +327,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
