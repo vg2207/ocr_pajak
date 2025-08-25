@@ -65,6 +65,8 @@ if user_input_folder is not None:
         if not os.path.exists(os.path.join(os.getcwd(),saved_directory)):
             os.makedirs(os.path.join(os.getcwd(),saved_directory))
 
+        st.write(os.listdir(os.getcwd()))
+
 
         with st.spinner("Wait for it..."):
             with st.empty():
@@ -277,6 +279,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
