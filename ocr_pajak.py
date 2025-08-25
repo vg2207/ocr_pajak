@@ -123,9 +123,7 @@ if user_input_folder is not None:
                     # ONLY FOR NOMOR
                     
                     # Open the PDF file
-                    filenames = image_path_in_colab.name
-                    st.write(filenames)
-                    current_filename=re.findall(to_regex, image_path_in_colab)
+                    current_filename=image_path_colab[len(saved_directory):][:-4]
                     st.write(image_path_in_colab)
                     st.write(current_filename)
                     reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[j]))
@@ -298,6 +296,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
