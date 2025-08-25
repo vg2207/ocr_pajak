@@ -15,6 +15,7 @@ import datetime
 # import easyocr
 import re
 from pypdf import PdfReader
+import pdfplumber
 
 
 st.set_page_config(layout="wide")
@@ -90,7 +91,7 @@ if user_input_folder is not None:
             "KODE OBJEK PAJAK": [],
             # "OBJEK PAJAK": [],
             "DPP": [],
-            # "TARIF": [],
+            "TARIF": [],
             "PAJAK PENGHASILAN": [],
             "B.8 Jenis Dokumen": [],
             "B.8 Tanggal": [],
@@ -157,6 +158,26 @@ if user_input_folder is not None:
                     text_for_c3 = re.findall('(?<=C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT\nPPh\n: )[^ ].*', a[0])[0]
                     text_for_c4 = re.findall('(?<=C.4 TANGGAL : )[^ ].*', a[0])[0]
 
+
+                    extracted_text_b567 = ""
+
+                    with pdfplumber.open(os.path.join(path_to_pdf, current_filename)) as pdf:
+                        for page in pdf.pages:
+                            # Use a corrected bounding box (x0, y0, x1, y1)
+                            # (left, bottom, right, top)
+                            cropped = page.within_bbox((int(11/20.35*595), int((20.35-10)/20.35*595), int(19.45/20.35*595), int((20.35-9.35)/20.35*595)))
+                            text = cropped.extract_text()
+                            if text:
+                                extracted_text_b567 += text.strip()
+                    b567 = re.split(r'\s+', extracted_text_b567)
+                    text_for_b5 = b567[0]
+                    text_for_b6 = b567[1]
+                    text_for_b7 = b567[2]
+                    st.write(b567)
+                    st.write(text_for_b5)
+                    st.write(text_for_b6)
+                    st.write(text_for_b7)
+
         
                     def region_of_interest(coordinate):
                         x1 = coordinate[0]
@@ -179,9 +200,9 @@ if user_input_folder is not None:
                         # [3.35, 5, 8.2, 8.8],
                         [2, 5.2, 10.35, 10.8],
                         # [5.4, 10.2, 10.35, 10.8],
-                        [11, 13.2, 10.35, 10.8],
+                        # [11, 13.2, 10.35, 10.8],
                         # [14, 15, 10.35, 10.8],
-                        [15.7, 19.4, 10.35, 10.8],
+                        # [15.7, 19.4, 10.35, 10.8],
                         # [9, 12, 11.2, 12],
                         # [14.2, 17, 11.2, 12],
                         # [9, 13, 13.2, 13.7],
@@ -202,7 +223,7 @@ if user_input_folder is not None:
                         "KODE OBJEK PAJAK": [],
                         # "OBJEK PAJAK": [],
                         "DPP": [],
-                        # "TARIF": [],
+                        "TARIF": [],
                         "PAJAK PENGHASILAN": [],
                         "B.8 Jenis Dokumen": [],
                         "B.8 Tanggal": [],
@@ -246,9 +267,9 @@ if user_input_folder is not None:
                                             "B.2 Jenis PPh": [text_for_b2],
                                             "KODE OBJEK PAJAK": [extracted[3]],
                                             # "OBJEK PAJAK": [],
-                                            "DPP": [extracted[4]],
-                                            # "TARIF": [extracted[5]],
-                                            "PAJAK PENGHASILAN": [extracted[5]],
+                                            "DPP": [text_for_b5],
+                                            "TARIF": [text_for_b5],
+                                            "PAJAK PENGHASILAN": [text_for_b7],
                                             "B.8 Jenis Dokumen": [text_for_b8_jenisdokumen],
                                             "B.8 Tanggal": [text_for_b8_tanggal],
                                             "B.9 Nomor Dokumen": [text_for_b9],
@@ -257,9 +278,9 @@ if user_input_folder is not None:
                                             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [text_for_c3],
                                             "C.4 TANGGAL": [text_for_c4],
                                             "Nama File": [image_path_in_colab[(len(saved_directory)+1):][:-4]],
-                                            "DPP converted": [float(re.sub(r"[\s.]" , "", extracted[4]))],
-                                            "PAJAK PENGHASILAN converted": [float(re.sub(r"[\s.]" , "", extracted[5]))],
-                                            "TARIF converted": [round(float(re.sub(r"[\s.]" , "", extracted[5]))/float(re.sub(r"[\s.]" , "", extracted[4]))*100, 2)]
+                                            # "DPP converted": [float(re.sub(r"[\s.]" , "", extracted[4]))],
+                                            # "PAJAK PENGHASILAN converted": [float(re.sub(r"[\s.]" , "", extracted[5]))],
+                                            # "TARIF converted": [round(float(re.sub(r"[\s.]" , "", extracted[5]))/float(re.sub(r"[\s.]" , "", extracted[4]))*100, 2)]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
@@ -306,6 +327,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
