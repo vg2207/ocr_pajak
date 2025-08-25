@@ -51,17 +51,17 @@ if user_input_folder is not None:
         st.success('Folder Uploaded Successfully!')
 
         path_to_pdf = os.path.join(target_path, str(os.listdir(target_path)[0]))
-        st.write(path_to_pdf)
+
 
         file_path_pdf = os.listdir(path_to_pdf)
-        st.write(file_path_pdf)
+
 
         file_count = len(file_path_pdf)
-        st.write(file_count)
+
 
 
         saved_directory = os.path.join(os.getcwd(), 'saved_image' + ' ' + os.path.splitext(user_input_folder.name)[0])
-        st.write(saved_directory)
+
         if not os.path.exists(saved_directory):
             os.makedirs(saved_directory)
 
@@ -75,7 +75,7 @@ if user_input_folder is not None:
                     images = convert_from_path(os.path.join(path_to_pdf,file_path_pdf[i]), 500)
                     for j, image in enumerate(images):
                         fname = os.path.join(saved_directory, str(file_path_pdf[i])[:-4]+'.jpg')
-                        st.write(fname)
+                        image.save(fname, "JPEG")
             
             time.sleep(0.5)
         st.success("File converted successfully!")
@@ -105,6 +105,7 @@ if user_input_folder is not None:
             }
         df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
 
+        st.write(os.listdir(os.getcwd()))
         st.write(os.listdir(saved_directory))
         # reader = easyocr.Reader(['id','en'], gpu=False) # this needs to run only once to load the model into memory
         
@@ -279,6 +280,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
