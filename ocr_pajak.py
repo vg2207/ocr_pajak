@@ -137,10 +137,6 @@ if user_input_folder is not None:
                     a = [extracted_text]
                     text_for_nomor = re.findall('(?<=PEMUNGUTAN PPh PEMUNGUTAN\n)[^ ]+', a[0])[0]
                     text_for_b2 = re.findall('(?<=B.2 Jenis PPh : )[^ ].*', a[0])[0]
-                    b567 = re.split(r"\s", re.findall('(?<=Pajak Penghasilan\n)[^ ].*', a[0])[0])
-                    text_for_b5 = b567[0]
-                    text_for_b6 = b567[1]
-                    text_for_b7 = b567[2]
                     text_for_b8_jenisdokumen = re.findall('(?<=B.8 Dokumen Dasar Bukti\nPemotongan dan/atau\nPemungutan PPh Unifikasi\natau Dasar Pemberian\nFasilitas\nJenis Dokumen : )[^ ].*(?= Tanggal)', a[0])[0]
                     text_for_b8_tanggal = re.findall('(?<=Tanggal : )[^ ].*', re.findall('(?<=B.8 Dokumen Dasar Bukti\nPemotongan dan/atau\nPemungutan PPh Unifikasi\natau Dasar Pemberian\nFasilitas\nJenis Dokumen : )[^ ].*', a[0])[0])[0]
                     text_for_b9 = re.findall('(?<=B.9  Nomor Dokumen : )[^ ].*', a[0])[0]
@@ -203,9 +199,9 @@ if user_input_folder is not None:
                         "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
                         "C.4 TANGGAL": [],
                         "Nama File": [],
-                        # "DPP converted": [],
-                        # "PAJAK PENGHASILAN converted": [],
-                        # "TARIF converted": []
+                        "DPP converted": [],
+                        "PAJAK PENGHASILAN converted": [],
+                        "TARIF converted": []
                         }
                     df_all_data = pd.DataFrame(nama_kolom)
         
@@ -235,23 +231,31 @@ if user_input_folder is not None:
                                             "MASA PAJAK": [extracted[1]],
                                             "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [extracted[2]],
                                             "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [extracted[3]],
-                                            "B.2 Jenis PPh": [extracted[4]],
-                                            "KODE OBJEK PAJAK": [extracted[5]],
+                                            # "B.2 Jenis PPh": [extracted[4]],
+                                            "B.2 Jenis PPh": [text_for_b2],
+                                            "KODE OBJEK PAJAK": [],
                                             "OBJEK PAJAK": [extracted[6]],
                                             "DPP": [extracted[7]],
                                             "TARIF": [extracted[8]],
                                             "PAJAK PENGHASILAN": [extracted[9]],
-                                            "B.8 Jenis Dokumen": [extracted[10]],
-                                            "B.8 Tanggal": [extracted[11]],
-                                            "B.9 Nomor Dokumen": [extracted[12]],
-                                            "C.1 NPWP / NIK": [extracted[13]],
-                                            "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [extracted[14]],
-                                            "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
-                                            "C.4 TANGGAL": [extracted[16]],
+                                            # "B.8 Jenis Dokumen": [extracted[10]],
+                                            # "B.8 Tanggal": [extracted[11]],
+                                            # "B.9 Nomor Dokumen": [extracted[12]],
+                                            # "C.1 NPWP / NIK": [extracted[13]],
+                                            # "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [extracted[14]],
+                                            # "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
+                                            # "C.4 TANGGAL": [extracted[16]],
+                                            "B.8 Jenis Dokumen": [text_for_b8_jenisdokumen],
+                                            "B.8 Tanggal": [text_for_b8_tanggal],
+                                            "B.9 Nomor Dokumen": [text_for_b9],
+                                            "C.1 NPWP / NIK": [text_for_c1],
+                                            "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [text_for_c2],
+                                            "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [text_for_c3],
+                                            "C.4 TANGGAL": [text_for_c4],
                                             "Nama File": [image_path_in_colab[41:][:-4]],
-                                            # "DPP converted": [float(extracted[7].replace(".",""))],
-                                            # "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
-                                            # "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
+                                            "DPP converted": [float(extracted[7].replace(".",""))],
+                                            "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
+                                            "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
@@ -298,6 +302,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
