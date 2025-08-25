@@ -60,12 +60,11 @@ if user_input_folder is not None:
         st.write(file_count)
 
 
-        saved_directory = 'saved_image' + ' ' + os.path.splitext(user_input_folder.name)[0]
+        saved_directory = os.path.join(os.getcwd(), 'saved_image' + ' ' + os.path.splitext(user_input_folder.name)[0])
         st.write(saved_directory)
-        if not os.path.exists(os.path.join(os.getcwd(),saved_directory)):
-            os.makedirs(os.path.join(os.getcwd(),saved_directory))
+        if not os.path.exists(saved_directory):
+            os.makedirs(saved_directory)
 
-        st.write(os.listdir(saved_directory))
 
 
         with st.spinner("Wait for it..."):
