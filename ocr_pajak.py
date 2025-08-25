@@ -51,10 +51,10 @@ if user_input_folder is not None:
         st.success('Folder Uploaded Successfully!')
 
         path_to_pdf = os.path.join(target_path, str(os.listdir(target_path)[0]))
-        st.write(path_to_pdf)
+        # st.write(path_to_pdf)
 
         file_path_pdf = os.listdir(path_to_pdf)
-        st.write(file_path_pdf)
+        # st.write(file_path_pdf)
 
         file_count = len(file_path_pdf)
 
@@ -126,8 +126,8 @@ if user_input_folder is not None:
 
                     current_filename=image_path_in_colab[(len(saved_directory)+1):][:-4] + str(".pdf")
                     
-                    st.write(current_filename)
-                    st.write(os.path.join(path_to_pdf, current_filename))
+                    # st.write(current_filename)
+                    # st.write(os.path.join(path_to_pdf, current_filename))
                     reader = PdfReader(os.path.join(path_to_pdf, current_filename))
                     a=[]
                     # Iterate through pages and extract text
@@ -302,6 +302,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
