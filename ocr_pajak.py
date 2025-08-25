@@ -123,7 +123,10 @@ if user_input_folder is not None:
                     # ONLY FOR NOMOR
                     
                     # Open the PDF file
+                    to_regex = str(') + "(?<=" + saved_directory + ")[^ ].*(?= .jpg)" + str(')
+                    current_filename=re.findall(to_regex, image_path_in_colab)
                     st.write(image_path_in_colab)
+                    st.write(current_filename)
                     reader = PdfReader(os.path.join(path_to_pdf,file_path_pdf[j]))
                     a=[]
                     # Iterate through pages and extract text
@@ -294,6 +297,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
