@@ -99,6 +99,7 @@ if user_input_folder is not None:
             "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [],
             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
             "C.4 TANGGAL": [],
+            "Nama File": [],
             "DPP converted": [],
             "PAJAK PENGHASILAN converted": [],
             "TARIF converted": []
@@ -252,7 +253,7 @@ if user_input_folder is not None:
                                             "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [text_for_c2],
                                             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [text_for_c3],
                                             "C.4 TANGGAL": [text_for_c4],
-                                            "Nama File": [image_path_in_colab[41:][:-4]],
+                                            "Nama File": [image_path_in_colab[(len(saved_directory)+1):][:-4]],
                                             "DPP converted": [float(extracted[7].replace(".",""))],
                                             "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
                                             "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
@@ -302,6 +303,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
