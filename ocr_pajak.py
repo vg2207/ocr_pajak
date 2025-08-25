@@ -260,12 +260,11 @@ if st.session_state["page"] == 1:
         
             st.write(f"Running Time: {time_difference}")
 
-            if button_clicked:
                 
-                tombol_ulangi = st.button(type="primary", label='Ulangi dari awal')
-                if tombol_ulangi:
-                    st.session_state.page = 0
-                    st.rerun()
+            tombol_ulangi = st.button(type="primary", label='Ulangi dari awal')
+            if tombol_ulangi:
+                st.session_state.page = 0
+                st.rerun()
         
     
             
@@ -275,6 +274,7 @@ if st.session_state["page"] == 1:
     
     else :
         st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
