@@ -88,7 +88,7 @@ if user_input_folder is not None:
             "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
             "B.2 Jenis PPh": [],
             "KODE OBJEK PAJAK": [],
-            "OBJEK PAJAK": [],
+            # "OBJEK PAJAK": [],
             "DPP": [],
             "TARIF": [],
             "PAJAK PENGHASILAN": [],
@@ -136,6 +136,17 @@ if user_input_folder is not None:
                     for page in reader.pages:
                         extracted_text += page.extract_text()
                     a = [extracted_text]
+                    
+                    text_for_nomor = ""
+                    text_for_b2 = ""
+                    text_for_b8_jenisdokumen = ""
+                    text_for_b8_tanggal = ""
+                    text_for_b9 = ""
+                    text_for_c1 = ""
+                    text_for_c2 = ""
+                    text_for_c3 = ""
+                    text_for_c4 = ""
+                    
                     text_for_nomor = re.findall('(?<=PEMUNGUTAN PPh PEMUNGUTAN\n)[^ ]+', a[0])[0]
                     text_for_b2 = re.findall('(?<=B.2 Jenis PPh : )[^ ].*', a[0])[0]
                     text_for_b8_jenisdokumen = re.findall('(?<=B.8 Dokumen Dasar Bukti\nPemotongan dan/atau\nPemungutan PPh Unifikasi\natau Dasar Pemberian\nFasilitas\nJenis Dokumen : )[^ ].*(?= Tanggal)', a[0])[0]
@@ -161,23 +172,24 @@ if user_input_folder is not None:
         
         
                     coordinates = [
-                        [1.5, 5.3, 3.8, 4.2],
+                        # [1.5, 5.3, 3.8, 4.2],
                         [6.1, 9.9, 3.8, 4.2],
                         [11, 14, 3.8, 4.2],
                         [15.5, 19, 3.8, 4.2],
-                        [3.35, 5, 8.2, 8.8],
+                        # [3.35, 5, 8.2, 8.8],
                         [2, 5.2, 10.35, 10.8],
-                        [5.4, 10.2, 10.35, 10.8],
+                        # [5.4, 10.2, 10.35, 10.8],
                         [11, 13.2, 10.35, 10.8],
                         [14, 15, 10.35, 10.8],
                         [15.7, 19.4, 10.35, 10.8],
-                        [9, 12, 11.2, 12],
-                        [14.2, 17, 11.2, 12],
-                        [9, 13, 13.2, 13.7],
-                        [7.5, 20, 15.3, 15.8],
-                        [7.5, 20, 15.8, 16.7],
-                        [7.5, 20, 16.7, 17.7],
-                        [7.5, 20, 17.7, 18.2]]
+                        # [9, 12, 11.2, 12],
+                        # [14.2, 17, 11.2, 12],
+                        # [9, 13, 13.2, 13.7],
+                        # [7.5, 20, 15.3, 15.8],
+                        # [7.5, 20, 15.8, 16.7],
+                        # [7.5, 20, 16.7, 17.7],
+                        # [7.5, 20, 17.7, 18.2]
+                    ]
         
         
         
@@ -188,7 +200,7 @@ if user_input_folder is not None:
                         "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
                         "B.2 Jenis PPh": [],
                         "KODE OBJEK PAJAK": [],
-                        "OBJEK PAJAK": [],
+                        # "OBJEK PAJAK": [],
                         "DPP": [],
                         "TARIF": [],
                         "PAJAK PENGHASILAN": [],
@@ -227,25 +239,16 @@ if user_input_folder is not None:
                             
                         
                         new_row = pd.DataFrame({
-                                            # "NOMOR": [extracted[0]],
                                             "NOMOR": [text_for_nomor],
-                                            "MASA PAJAK": [extracted[1]],
-                                            "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [extracted[2]],
-                                            "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [extracted[3]],
-                                            # "B.2 Jenis PPh": [extracted[4]],
+                                            "MASA PAJAK": [extracted[0]],
+                                            "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [extracted[1]],
+                                            "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [extracted[2]],
                                             "B.2 Jenis PPh": [text_for_b2],
-                                            "KODE OBJEK PAJAK": [extracted[5]],
-                                            "OBJEK PAJAK": [],
-                                            "DPP": [extracted[7]],
-                                            "TARIF": [extracted[8]],
-                                            "PAJAK PENGHASILAN": [extracted[9]],
-                                            # "B.8 Jenis Dokumen": [extracted[10]],
-                                            # "B.8 Tanggal": [extracted[11]],
-                                            # "B.9 Nomor Dokumen": [extracted[12]],
-                                            # "C.1 NPWP / NIK": [extracted[13]],
-                                            # "C.2 NOMOR IDENTITAS TEMPAT KEGIATAN USAHA (NITKU) / SUBUNIT ORGANISASI": [extracted[14]],
-                                            # "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [extracted[15]],
-                                            # "C.4 TANGGAL": [extracted[16]],
+                                            "KODE OBJEK PAJAK": [extracted[4]],
+                                            # "OBJEK PAJAK": [],
+                                            "DPP": [extracted[5]],
+                                            "TARIF": [extracted[6]],
+                                            "PAJAK PENGHASILAN": [extracted[7]],
                                             "B.8 Jenis Dokumen": [text_for_b8_jenisdokumen],
                                             "B.8 Tanggal": [text_for_b8_tanggal],
                                             "B.9 Nomor Dokumen": [text_for_b9],
@@ -254,9 +257,9 @@ if user_input_folder is not None:
                                             "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [text_for_c3],
                                             "C.4 TANGGAL": [text_for_c4],
                                             "Nama File": [image_path_in_colab[(len(saved_directory)+1):][:-4]],
-                                            "DPP converted": [float(extracted[7].replace(".",""))],
-                                            "PAJAK PENGHASILAN converted": [float(extracted[9].replace(".",""))],
-                                            "TARIF converted": [round(float(extracted[9].replace(".",""))/float(extracted[7].replace(".",""))*100, 2)]
+                                            "DPP converted": [float(extracted[5].replace(".",""))],
+                                            "PAJAK PENGHASILAN converted": [float(extracted[7].replace(".",""))],
+                                            "TARIF converted": [round(float(extracted[7].replace(".",""))/float(extracted[5].replace(".",""))*100, 2)]
                                         })
                         df_all_data_extracted = pd.concat([df_all_data, new_row]).reset_index(drop=True)
                         return(df_all_data_extracted)
