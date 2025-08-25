@@ -58,7 +58,7 @@ if st.session_state["page"] == 1:
     
     
             saved_directory = 'saved_image' + ' ' + str(os.path.splitext(user_input_folder.name)[0])
-            st.write(saved_directory)
+            # st.write(saved_directory)
             if not os.path.exists(saved_directory):
                 os.makedirs(saved_directory)
     
@@ -100,7 +100,7 @@ if st.session_state["page"] == 1:
                 }
             df_all_data_extracted_combined = pd.DataFrame(nama_kolom)
     
-            # st.write(os.listdir(saved_directory))
+            st.write(os.listdir(saved_directory))
             # reader = easyocr.Reader(['id','en'], gpu=False) # this needs to run only once to load the model into memory
             
             with st.spinner("Wait for it..."):
@@ -251,7 +251,7 @@ if st.session_state["page"] == 1:
                     with pd.ExcelWriter(output, engine='xlsxwriter') as writer: 
                         df_download = df_all_data_extracted_combined.to_excel(writer)
 
-                    output_excel_file_name = 'result' + ' ' + str(user_input_folder.name) + '.xlsx'
+                    output_excel_file_name = 'result' + ' ' + str(os.path.splitext(user_input_folder.name)[0]) + '.xlsx'
             
                     button_clicked = st.download_button(label=':cloud: Download result', type="secondary", data=output.getvalue(),file_name=output_excel_file_name)
     
@@ -274,6 +274,7 @@ if st.session_state["page"] == 1:
     
     else :
         st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
