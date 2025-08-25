@@ -58,6 +58,7 @@ if st.session_state["page"] == 1:
     
     
             saved_directory = 'saved_image' + ' ' + str(user_input_folder.name)
+            st.write(saved_directory)
             if not os.path.exists(saved_directory):
                 os.makedirs(saved_directory)
     
@@ -273,6 +274,7 @@ if st.session_state["page"] == 1:
     
     else :
         st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
