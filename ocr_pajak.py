@@ -51,14 +51,17 @@ if user_input_folder is not None:
         st.success('Folder Uploaded Successfully!')
 
         path_to_pdf = os.path.join(target_path, str(os.listdir(target_path)[0]))
+        st.write(path_to_pdf)
 
         file_path_pdf = os.listdir(path_to_pdf)
+        st.write(file_path_pdf)
 
         file_count = len(file_path_pdf)
+        st.write(file_count)
 
 
         saved_directory = 'saved_image'
-        # st.write(saved_directory)
+        st.write(saved_directory)
         if not os.path.exists(saved_directory):
             os.makedirs(saved_directory)
 
@@ -274,6 +277,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
