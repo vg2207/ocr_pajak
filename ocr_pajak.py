@@ -60,7 +60,7 @@ if user_input_folder is not None:
         st.write(file_count)
 
 
-        saved_directory = 'saved_image'
+        saved_directory = 'saved_image' + ' ' + os.path.splitext(user_input_folder.name)[0]
         st.write(saved_directory)
         if not os.path.exists(os.path.join(os.getcwd(),saved_directory)):
             os.makedirs(os.path.join(os.getcwd(),saved_directory))
@@ -280,6 +280,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
