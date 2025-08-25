@@ -124,6 +124,7 @@ if user_input_folder is not None:
                     
                     # Open the PDF file
                     to_regex = str(') + "(?<=" + saved_directory + ")[^ ].*(?= .jpg)" + str(')
+                    st.write(to_regex)
                     current_filename=re.findall(to_regex, image_path_in_colab)
                     st.write(image_path_in_colab)
                     st.write(current_filename)
@@ -297,6 +298,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
