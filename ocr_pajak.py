@@ -88,7 +88,7 @@ if user_input_folder is not None:
             "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
             "B.2 Jenis PPh": [],
             "KODE OBJEK PAJAK": [],
-            "OBJEK PAJAK": [],
+            # "OBJEK PAJAK": [],
             "DPP": [],
             "TARIF": [],
             "PAJAK PENGHASILAN": [],
@@ -165,8 +165,8 @@ if user_input_folder is not None:
                         [11, 14, 3.8, 4.2],
                         [15.5, 19, 3.8, 4.2],
                         [3.35, 5, 8.2, 8.8],
-                        # [2, 5.2, 10.35, 10.8],
-                        [5.4, 10.2, 10.35, 10.8],
+                        [2, 5.2, 10.35, 10.8],
+                        # [5.4, 10.2, 10.35, 10.8],
                         [11, 13.2, 10.35, 10.8],
                         [14, 15, 10.35, 10.8],
                         [15.7, 19.4, 10.35, 10.8],
@@ -186,8 +186,8 @@ if user_input_folder is not None:
                         "SIFAT PEMOTONGAN DAN/ATAU PEMUNGUTAN PPh": [],
                         "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [],
                         "B.2 Jenis PPh": [],
-                        # "KODE OBJEK PAJAK": [],
-                        "OBJEK PAJAK": [],
+                        "KODE OBJEK PAJAK": [],
+                        # "OBJEK PAJAK": [],
                         "DPP": [],
                         "TARIF": [],
                         "PAJAK PENGHASILAN": [],
@@ -233,8 +233,8 @@ if user_input_folder is not None:
                                             "STATUS BUKTI PEMOTONGAN / PEMUNGUTAN": [extracted[3]],
                                             # "B.2 Jenis PPh": [extracted[4]],
                                             "B.2 Jenis PPh": [text_for_b2],
-                                            # "KODE OBJEK PAJAK": [],
-                                            "OBJEK PAJAK": [extracted[6]],
+                                            "KODE OBJEK PAJAK": [extracted[5]],
+                                            # "OBJEK PAJAK": [extracted[6]],
                                             "DPP": [extracted[7]],
                                             "TARIF": [extracted[8]],
                                             "PAJAK PENGHASILAN": [extracted[9]],
@@ -302,6 +302,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
