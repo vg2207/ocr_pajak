@@ -123,11 +123,11 @@ if user_input_folder is not None:
                     # ONLY FOR NOMOR
                     
                     # Open the PDF file
-                    st.write(image_path_in_colab)
+
                     current_filename=image_path_in_colab[(len(saved_directory)+1):][:-4] + str(".pdf")
                     
-                    st.write(image_path_in_colab)
                     st.write(current_filename)
+                    st.write(os.path.join(file_path_pdf, current_filename))
                     reader = PdfReader(os.path.join(file_path_pdf, current_filename) )
                     a=[]
                     # Iterate through pages and extract text
@@ -298,6 +298,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
