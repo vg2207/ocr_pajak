@@ -233,9 +233,9 @@ if user_input_folder is not None:
                         "C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT": [],
                         "C.4 TANGGAL": [],
                         "Nama File": [],
-                        "DPP converted": [],
-                        "PAJAK PENGHASILAN converted": [],
-                        "TARIF converted": []
+                        # "DPP converted": [],
+                        # "PAJAK PENGHASILAN converted": [],
+                        # "TARIF converted": []
                         }
                     df_all_data = pd.DataFrame(nama_kolom)
         
@@ -327,6 +327,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
