@@ -57,7 +57,7 @@ if st.session_state["page"] == 1:
             file_count = len(file_path_pdf)
     
     
-            saved_directory = 'saved_image' + ' ' + str(user_input_folder.name)
+            saved_directory = 'saved_image' + ' ' + str(os.path.splitext(user_input_folder.name)[0])
             st.write(saved_directory)
             if not os.path.exists(saved_directory):
                 os.makedirs(saved_directory)
@@ -274,6 +274,7 @@ if st.session_state["page"] == 1:
     
     else :
         st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
