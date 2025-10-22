@@ -152,7 +152,10 @@ if user_input_folder is not None:
                     text_for_b2 = re.findall('(?<=B.2 Jenis PPh : )[^ ].*', a[0])[0]
                     text_for_b8_jenisdokumen = re.findall('(?<=B.8 Dokumen Dasar Bukti\nPemotongan dan/atau\nPemungutan PPh Unifikasi\natau Dasar Pemberian\nFasilitas\nJenis Dokumen : )[^ ].*(?= Tanggal)', a[0])[0]
                     text_for_b8_tanggal = re.findall('(?<=Tanggal : )[^ ].*', re.findall('(?<=B.8 Dokumen Dasar Bukti\nPemotongan dan/atau\nPemungutan PPh Unifikasi\natau Dasar Pemberian\nFasilitas\nJenis Dokumen : )[^ ].*', a[0])[0])[0]
-                    text_for_b9 = re.findall('(?<=B.9  Nomor Dokumen : )[^ ].*', a[0])[0]
+                    try :
+                        text_for_b9 = re.findall('(?<=B.9  Nomor Dokumen : )[^ ].*', a[0])[0]
+                    except: 
+                        text_for_b9 = ""
                     text_for_c1 = re.findall('(?<=C.1 NPWP / NIK : )[^ ].*', a[0])[0]
                     text_for_c2 = re.findall('(?<=SUBUNIT ORGANISASI\n: )[^ ].*', a[0])[0]
                     text_for_c3 = re.findall('(?<=C.3 NAMA PEMOTONG DAN/ATAU PEMUNGUT\nPPh\n: )[^ ].*', a[0])[0]
@@ -327,6 +330,7 @@ if user_input_folder is not None:
 
 else :
     st.error("You have to upload pdf folder in the sidebar")
+
 
 
 
